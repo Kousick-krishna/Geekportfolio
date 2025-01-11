@@ -8,7 +8,7 @@ function Footer() {
 
         <div className="mt-12 pt-8 border-t border-gray-800 text-center">
           <div className="flex justify-center space-x-6 mb-4">
-          <a href="#" className="text-gray-400 hover:text-white">
+          <a href="https://www.instagram.com/geekspace.in/?igsh=MTl0MTFqYTJ6dW0xeg%3D%3D" className="text-gray-400 hover:text-white">
   <span className="sr-only">Instagram</span>
   <svg
     className="h-6 w-6"
