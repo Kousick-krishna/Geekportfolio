@@ -34,7 +34,7 @@ function Contact() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://geekportfolio-iota.vercel.app/api/contact', formData);
+      const response = await axios.post('https://geekportfolio-iota.vercel.app/', formData);
       setStatus({
         type: 'success',
         message: 'Message sent successfully!'
