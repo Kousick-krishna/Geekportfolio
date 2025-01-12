@@ -12,6 +12,8 @@ const PORT = 5000;
 app.use(cors());
 app.use(express.json());
 
+app.use(cors({ origin: 'https://www.geekspace.in' }));
+
 // Connect to MongoDB
 mongoose.connect('mongodb://127.0.0.1:27017/portfolio', {
   useNewUrlParser: true,
