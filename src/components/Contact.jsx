@@ -34,7 +34,7 @@ function Contact() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://geekportfolio-iota.vercel.app/', formData);
+      const response = await axios.post('https://geekportfolio-iota.vercel.app', formData); 
       setStatus({
         type: 'success',
         message: 'Message sent successfully!'
@@ -52,6 +52,7 @@ function Contact() {
       });
     }
   };
+  
 
   return (
     <section id="contact" className="py-20 bg-white">
