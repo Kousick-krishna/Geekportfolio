@@ -35,7 +35,7 @@ function Contact() {
     e.preventDefault();
   
     try {
-      const response = await axios.post('http://localhost:5000/contact', formData, {
+      const response = await axios.post('https://geekportfolio-rho.vercel.app/', formData, {
         headers: {
           'Content-Type': 'application/json',
         },
