@@ -1,6 +1,6 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import cors from 'cors'; // Only one import is needed
+import cors from 'cors';
 import dotenv from 'dotenv';
 import Contact from './models/contactModel.js';
 
@@ -11,30 +11,27 @@ const app = express();
 // Middleware
 app.use(express.json());
 
-// CORS Configuration
-const corsOptions = {
-  origin: 'https://www.geekspace.in', // Allow only requests from this domain
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-};
+// Fix CORS Configuration
+app.use(cors({
+  origin: 'https://geekportfolio-front.vercel.app', // Allow only frontend domain
+  methods: 'GET, POST, PUT, DELETE',
+  allowedHeaders: 'Content-Type, Authorization'
+}));
 
-app.use(cors(corsOptions)); // Apply CORS middleware with specific options
+// Manually set CORS headers
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', 'https://geekportfolio-front.vercel.app');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  next();
+});
 
-// MongoDB Connection
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
   .then(() => console.log('✅ MongoDB connected successfully'))
   .catch(err => console.error('❌ MongoDB connection error:', err));
-
-// Check MongoDB Connection Status
-mongoose.connection.once('open', () => {
-  console.log('🔗 MongoDB connection is open');
-});
-mongoose.connection.on('error', (err) => {
-  console.error('⚠️ MongoDB connection error:', err);
-});
 
 // Contact Form Route
 app.post('/contact', async (req, res) => {
