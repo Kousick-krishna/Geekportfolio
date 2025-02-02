@@ -1,28 +1,26 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import cors from 'cors';
+import cors from 'cors'; // Only one import is needed
 import dotenv from 'dotenv';
 import Contact from './models/contactModel.js';
 
 dotenv.config({ path: './.env' });
 
-
 const app = express();
 
 // Middleware
 app.use(express.json());
-app.use(cors());
-const cors = require('cors');
-app.use(cors({ origin: 'https://www.geekspace.in' }));
 
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'https://www.geekspace.in');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  next();
-});
+// CORS Configuration
+const corsOptions = {
+  origin: 'https://www.geekspace.in', // Allow only requests from this domain
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+};
 
+app.use(cors(corsOptions)); // Apply CORS middleware with specific options
 
+// MongoDB Connection
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
