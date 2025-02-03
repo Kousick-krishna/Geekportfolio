@@ -11,21 +11,17 @@ const app = express();
 // Middleware
 app.use(express.json());
 
-// Fix CORS Configuration
+// CORS Configuration
 app.use(cors({
-  origin: 'https://geekportfolio-front.vercel.app', // Allow only frontend domain
-  methods: 'GET, POST, PUT, DELETE',
-  allowedHeaders: 'Content-Type, Authorization'
+  origin: ['https://geekportfolio-front.vercel.app',
+    'www.geekspace.in'
+  ], // Allow only frontend domain
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify allowed methods
+  allowedHeaders: ['Content-Type', 'Authorization'], // Specify allowed headers
+  credentials: true, // Allow credentials (if needed)
 }));
 
-// Manually set CORS headers
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'https://geekportfolio-front.vercel.app');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  next();
-});
-
+// MongoDB Connection
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
