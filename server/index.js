@@ -13,13 +13,12 @@ app.use(express.json());
 
 // CORS Configuration
 app.use(cors({
-  origin: ['https://geekportfolio-front.vercel.app',
-    'www.geekspace.in'
-  ], // Allow only frontend domain
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify allowed methods
-  allowedHeaders: ['Content-Type', 'Authorization'], // Specify allowed headers
-  credentials: true, // Allow credentials (if needed)
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
 }));
+
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI, {
@@ -28,6 +27,12 @@ mongoose.connect(process.env.MONGO_URI, {
 })
   .then(() => console.log('✅ MongoDB connected successfully'))
   .catch(err => console.error('❌ MongoDB connection error:', err));
+
+  app.use((req, res, next) => {
+    console.log(`📡 Received ${req.method} request for ${req.url}`);
+    next();
+  });
+  
 
 // Contact Form Route
 app.post('/contact', async (req, res) => {
